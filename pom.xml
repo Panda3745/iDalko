@@ -30,12 +30,6 @@
         </dependency>
         -->
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.10</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>com.atlassian.plugin</groupId>
             <artifactId>atlassian-spring-scanner-annotation</artifactId>
             <version>${atlassian.spring.scanner.version}</version>
@@ -97,6 +91,18 @@
             <version>1.8.5</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.atlassian.jira</groupId>
+            <artifactId>jira-tests</artifactId>
+            <version>${jira.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.jira</groupId>
+            <artifactId>jira-func-tests</artifactId>
+            <version>${jira.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -131,6 +137,26 @@
                         <!-- Ensure plugin is spring powered -->
                         <Spring-Context>*</Spring-Context>
                     </instructions>
+                    <testGroups>
+                        <testGroup>
+                            <id>wired-integration</id>
+                            <productIds>
+                                <productId>jira</productId>
+                            </productIds>
+                            <includes>
+                                <include>it/**/*WiredTest.java</include>
+                            </includes>
+                        </testGroup>
+                        <testGroup>
+                            <id>traditional-integration</id>
+                            <productIds>
+                                <productId>jira</productId>
+                            </productIds>
+                            <includes>
+                                <include>it/**/*TrdTest.java</include>
+                            </includes>
+                        </testGroup>
+                    </testGroups>
                 </configuration>
             </plugin>
             <plugin>
